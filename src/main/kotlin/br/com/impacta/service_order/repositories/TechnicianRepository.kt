@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface TechnicianRepository : JpaRepository<Technician, Int> {
 
     fun findByid(id: Int): Technician?
+
+    fun findByCpf(cpf: String): Technician?
 }
