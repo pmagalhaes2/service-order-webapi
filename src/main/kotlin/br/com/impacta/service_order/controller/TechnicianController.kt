@@ -2,6 +2,7 @@ package br.com.impacta.service_order.controller
 
 import br.com.impacta.service_order.dtos.TechnicianResponse
 import br.com.impacta.service_order.requests.TechnicianCreationRequest
+import br.com.impacta.service_order.requests.TechnicianUpdateRequest
 import br.com.impacta.service_order.services.TechnicianService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -30,4 +31,14 @@ class TechnicianController(
     fun createTechnician(@RequestBody @Valid technicianRequest: TechnicianCreationRequest): TechnicianResponse {
         return technicianService.create(technicianRequest)
     }
+
+    @PutMapping("/{id}")
+    fun updateTechnicianById(
+        @PathVariable id: Int,
+        @RequestBody @Valid technicianRequest: TechnicianUpdateRequest
+    ): TechnicianResponse {
+        return technicianService.update(id, technicianRequest)
+    }
+
+
 }
