@@ -16,11 +16,14 @@ class TechnicianService(
     private val technicianResponseMapper: TechnicianResponseMapper
 ) {
 
+    val notFoundMessage =
+        "Técnico não encontrado! Tente listar todos os técnicos registrados para realizar a operação para um ID cadastrado."
+
     fun findById(id: Int): TechnicianResponse {
         return technicianRepository.findByid(id)?.let {
             technicianResponseMapper.map(it)
         }
-            ?: throw NotFoundException("Técnico não encontrado! Tente listar todos os técnicos registrados para obter o ID específico.")
+            ?: throw NotFoundException(notFoundMessage)
     }
 
     fun findAll(): List<TechnicianResponse> {
@@ -65,7 +68,7 @@ class TechnicianService(
                 technicianResponseMapper.map(updatedTechnician)
             }
         }
-            ?: throw NotFoundException("Técnico não encontrado! Tente listar todos os técnicos registrados para realizar a operação para um ID cadastrado.")
+            ?: throw NotFoundException(notFoundMessage)
     }
 }
 
