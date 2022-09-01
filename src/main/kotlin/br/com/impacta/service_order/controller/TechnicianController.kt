@@ -5,6 +5,7 @@ import br.com.impacta.service_order.requests.TechnicianCreationRequest
 import br.com.impacta.service_order.requests.TechnicianUpdateRequest
 import br.com.impacta.service_order.services.TechnicianService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -46,5 +47,13 @@ class TechnicianController(
         @RequestBody @Valid technicianRequest: TechnicianUpdateRequest
     ): TechnicianResponse {
         return technicianService.update(id, technicianRequest)
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    fun deleteTechnicianById(
+        @PathVariable id: Int
+    ) {
+        return technicianService.delete(id)
     }
 }

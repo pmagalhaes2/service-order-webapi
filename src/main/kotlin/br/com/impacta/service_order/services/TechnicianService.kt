@@ -70,5 +70,16 @@ class TechnicianService(
         }
             ?: throw NotFoundException(notFoundMessage)
     }
+
+    fun delete(id: Int) {
+        technicianRepository.findByid(id)?.let {
+            if (it.soList.size > 0) {
+                throw Exception("Não é possível realizar a operação. Técnico possuí Ordens de Serviço ativas!")
+            } else {
+                technicianRepository.delete(it)
+            }
+        }
+            ?: throw NotFoundException(notFoundMessage)
+    }
 }
 
