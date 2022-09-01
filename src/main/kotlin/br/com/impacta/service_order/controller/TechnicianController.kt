@@ -33,12 +33,11 @@ class TechnicianController(
     }
 
     @PutMapping("/{id}")
+    @Transactional
     fun updateTechnicianById(
         @PathVariable id: Int,
         @RequestBody @Valid technicianRequest: TechnicianUpdateRequest
     ): TechnicianResponse {
         return technicianService.update(id, technicianRequest)
     }
-
-
 }
