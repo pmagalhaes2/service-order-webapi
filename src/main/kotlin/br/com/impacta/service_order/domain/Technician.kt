@@ -10,7 +10,7 @@ class Technician(
     cpf: String,
     phoneNumber: String,
     @OneToMany(mappedBy = "technician")
-    val list: List<ServiceOrder> = ArrayList()
+    val soList: List<ServiceOrder> = ArrayList()
 ) : Person(
     id,
     name,
@@ -18,6 +18,6 @@ class Technician(
     phoneNumber
 ) {
     fun getSOList(): List<ServiceOrder?> {
-        return list
+        return soList
     }
 }
