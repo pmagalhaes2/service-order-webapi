@@ -75,7 +75,7 @@ class TechnicianService(
 
     fun delete(id: Int) {
         technicianRepository.findByid(id)?.let {
-            if (it.soList.size > 0) {
+            if (it.soList.isNotEmpty()) {
                 throw Exception("Não é possível realizar a operação. Técnico possuí Ordens de Serviço ativas!")
             } else {
                 technicianRepository.delete(it)
