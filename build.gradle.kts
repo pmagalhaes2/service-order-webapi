@@ -22,6 +22,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.flywaydb:flyway-core")
+	implementation("org.flywaydb:flyway-mysql:9.2.0")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.3")
@@ -29,7 +30,7 @@ dependencies {
 	implementation("io.swagger:swagger-annotations:1.5.0")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
-	implementation(("com.h2database:h2"))
+	implementation("mysql:mysql-connector-java")
 
 
 	//  Test and lint dependencies
