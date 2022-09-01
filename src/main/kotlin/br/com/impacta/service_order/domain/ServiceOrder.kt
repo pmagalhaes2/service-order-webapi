@@ -1,7 +1,6 @@
 package br.com.impacta.service_order.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Id
@@ -35,11 +34,9 @@ data class ServiceOrder(
 
     @ManyToOne
     @JoinColumn(name = "technician_id", referencedColumnName = "id")
-    @JsonIgnore
     val technician: Technician,
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
-    @JsonIgnore
     val client: Client
 )

@@ -1,5 +1,7 @@
 package br.com.impacta.service_order.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.OneToMany
 
@@ -9,15 +11,12 @@ class Technician(
     name: String,
     cpf: String,
     phoneNumber: String,
-    @OneToMany(mappedBy = "technician")
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "technician")
+    @JsonIgnore
     val soList: List<ServiceOrder> = ArrayList()
 ) : Person(
     id,
     name,
     cpf,
     phoneNumber
-) {
-    fun getSOList(): List<ServiceOrder?> {
-        return soList
-    }
-}
+)
