@@ -32,6 +32,13 @@ class DBService {
             phoneNumber = "(31) 3820-7992"
         )
 
+        val t2 = Technician(
+            id = null,
+            name = "Luiza Arantes",
+            cpf = "986.077.750-06",
+            phoneNumber = "(11) 2222-2148"
+        )
+
         val c1 = Client(
             id = null,
             name = "Erica Lopes",
@@ -52,6 +59,7 @@ class DBService {
         c1.getSOList().plus(so1)
 
         technicianRepository.saveAll(listOf(t1))
+        technicianRepository.saveAll(listOf(t2))
         clientRepository.saveAll(listOf(c1))
         serviceOrderRepository.saveAll(listOf(so1))
     }
