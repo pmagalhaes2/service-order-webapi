@@ -55,9 +55,6 @@ class DBService {
             client = c1
         )
 
-        t1.getSOList().plus(so1)
-        c1.getSOList().plus(so1)
-
         technicianRepository.saveAll(listOf(t1))
         technicianRepository.saveAll(listOf(t2))
         clientRepository.saveAll(listOf(c1))
