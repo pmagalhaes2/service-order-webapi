@@ -13,12 +13,10 @@ class TechnicianService(
 ) {
 
     fun findById(id: Int): TechnicianResponse {
-        val technician = technicianRepository.findById(id).orElseThrow {
-            NotFoundException(
-                "Técnico não encontrado! Tente listar todos os técnicos registrados para obter o ID específico."
-            )
+        return technicianRepository.findByid(id)?.let {
+            technicianResponseMapper.map(it)
         }
-        return technicianResponseMapper.map(technician)
+            ?: throw NotFoundException("Técnico não encontrado! Tente listar todos os técnicos registrados para obter o ID específico.")
     }
 
     fun findAll(): List<TechnicianResponse> {
