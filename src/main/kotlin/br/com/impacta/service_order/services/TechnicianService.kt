@@ -4,6 +4,7 @@ import br.com.impacta.service_order.domain.Technician
 import br.com.impacta.service_order.dtos.TechnicianResponse
 import br.com.impacta.service_order.exceptions.NotFoundException
 import br.com.impacta.service_order.mapper.TechnicianResponseMapper
+import br.com.impacta.service_order.repositories.PersonRepository
 import br.com.impacta.service_order.repositories.TechnicianRepository
 import br.com.impacta.service_order.requests.TechnicianCreationRequest
 import br.com.impacta.service_order.requests.TechnicianUpdateRequest
@@ -13,7 +14,8 @@ import javax.validation.Valid
 @Service
 class TechnicianService(
     private val technicianRepository: TechnicianRepository,
-    private val technicianResponseMapper: TechnicianResponseMapper
+    private val technicianResponseMapper: TechnicianResponseMapper,
+    private val personRepository: PersonRepository
 ) {
 
     val notFoundMessage =
@@ -55,7 +57,7 @@ class TechnicianService(
                 Technician(
                     id = technician.id,
                     name = technicianRequest.name,
-                    cpf = technicianRepository.findByCpf(technicianRequest.cpf)?.let {
+                    cpf = personRepository.findByCpf(technicianRequest.cpf)?.let {
                         if (it.cpf == technicianRequest.cpf && it.id == technician.id) {
                             technicianRequest.cpf
                         } else {
