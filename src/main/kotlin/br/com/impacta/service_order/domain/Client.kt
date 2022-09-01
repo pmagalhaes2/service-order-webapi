@@ -1,5 +1,6 @@
 package br.com.impacta.service_order.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.Entity
 import javax.persistence.OneToMany
 
@@ -10,15 +11,11 @@ class Client(
     cpf: String,
     phoneNumber: String,
     @OneToMany(mappedBy = "client")
-    val list: List<ServiceOrder> = ArrayList(),
+    @JsonIgnore
+    val soList: List<ServiceOrder> = ArrayList(),
 ) : Person(
     id,
     name,
     cpf,
     phoneNumber
-) {
-
-    fun getSOList(): List<ServiceOrder?> {
-        return list
-    }
-}
+)
