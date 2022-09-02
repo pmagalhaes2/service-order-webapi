@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ServiceOrderRepository : JpaRepository<ServiceOrder, Int> {
+
+    fun findByid(id: Int): ServiceOrder?
 }
