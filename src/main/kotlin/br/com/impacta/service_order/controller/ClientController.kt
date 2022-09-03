@@ -5,6 +5,7 @@ import br.com.impacta.service_order.requests.ClientCreationRequest
 import br.com.impacta.service_order.requests.ClientUpdateRequest
 import br.com.impacta.service_order.services.ClientService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.transaction.Transactional
 import javax.validation.Valid
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/clients")
 class ClientController(
