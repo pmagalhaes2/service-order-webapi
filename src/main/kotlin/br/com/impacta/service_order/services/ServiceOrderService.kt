@@ -1,6 +1,7 @@
 package br.com.impacta.service_order.services
 
 import br.com.impacta.service_order.domain.ServiceOrder
+import br.com.impacta.service_order.domain.Status
 import br.com.impacta.service_order.dtos.ServiceOrderResponse
 import br.com.impacta.service_order.exceptions.NotFoundException
 import br.com.impacta.service_order.mapper.ServiceOrderResponseMapper
@@ -8,7 +9,10 @@ import br.com.impacta.service_order.repositories.ClientRepository
 import br.com.impacta.service_order.repositories.ServiceOrderRepository
 import br.com.impacta.service_order.repositories.TechnicianRepository
 import br.com.impacta.service_order.requests.ServiceOrderCreationRequest
+import br.com.impacta.service_order.requests.ServiceOrderUpdateRequest
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import javax.validation.Valid
 
 @Service
 class ServiceOrderService(
@@ -48,5 +52,31 @@ class ServiceOrderService(
         ).let { serviceOrder ->
             serviceOrderResponseMapper.map(serviceOrder)
         }
+    }
+
+    fun update(id: Int, @Valid serviceOrderRequest: ServiceOrderUpdateRequest): ServiceOrderResponse {
+        return serviceOrderRepository.findByid(id)?.let {
+            val serviceOrder = it
+
+            serviceOrderRepository.save(
+                ServiceOrder(
+                    id = serviceOrder.id,
+                    openingDate = serviceOrder.openingDate,
+                    endingDate = serviceOrderRequest.status.equals("FINISHED")?.let {
+                        LocalDateTime.now()
+                    } ?: serviceOrderRequest.endingDate,
+                    priority = serviceOrderRequest.priority,
+                    notes = serviceOrderRequest.notes,
+                    status = serviceOrderRequest.status,
+                    technician = technicianRepository.findByid(serviceOrderRequest.technician)
+                        ?: throw NotFoundException("Não existe técnico cadastrado com esse ID!"),
+                    client = clientRepository.findByid(serviceOrderRequest.client)
+                        ?: throw NotFoundException("Não existe cliente cadastrado com esse ID!")
+                )
+            ).let { updatedServiceOrder ->
+                serviceOrderResponseMapper.map(updatedServiceOrder)
+            }
+        }
+            ?: throw NotFoundException(notFoundMessage)
     }
 }
