@@ -1,6 +1,7 @@
 package br.com.impacta.service_order.requests
 
 import org.hibernate.validator.constraints.br.CPF
+import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
 
 data class TechnicianUpdateRequest(
@@ -14,5 +15,6 @@ data class TechnicianUpdateRequest(
     @field:CPF(message = "Número de CPF inválido")
     val cpf: String,
 
+    @field:NotEmpty(message = "O campo TELEFONE é requerido")
     val phoneNumber: String,
 )

@@ -4,6 +4,7 @@ import br.com.impacta.service_order.domain.Priority
 import br.com.impacta.service_order.domain.Status
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime
+import javax.validation.constraints.NotEmpty
 
 class ServiceOrderUpdateRequest(
 
@@ -12,6 +13,7 @@ class ServiceOrderUpdateRequest(
 
     val priority: Priority = Priority.LOW,
 
+    @field:NotEmpty(message = "O campo OBSERVAÇÕES é requerido")
     val notes: String,
 
     val status: Status = Status.OPENED,
