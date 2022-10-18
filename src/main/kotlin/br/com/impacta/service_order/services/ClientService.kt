@@ -75,7 +75,7 @@ class ClientService(
 
     fun delete(id: Int) {
         clientRepository.findByid(id)?.let {
-            if (it.soList.isNotEmpty()) {
+            if (it.soList.any { it.status.toString() != "FINISHED" }) {
                 throw Exception("Não é possível realizar a operação. Cliente possuí Ordens de Serviço ativas!")
             } else {
                 clientRepository.delete(it)
