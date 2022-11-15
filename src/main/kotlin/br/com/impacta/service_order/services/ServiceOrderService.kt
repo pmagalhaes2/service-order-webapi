@@ -1,7 +1,6 @@
 package br.com.impacta.service_order.services
 
 import br.com.impacta.service_order.domain.ServiceOrder
-import br.com.impacta.service_order.domain.Status
 import br.com.impacta.service_order.dtos.ServiceOrderResponse
 import br.com.impacta.service_order.exceptions.NotFoundException
 import br.com.impacta.service_order.mapper.ServiceOrderResponseMapper
@@ -62,9 +61,16 @@ class ServiceOrderService(
                 ServiceOrder(
                     id = serviceOrder.id,
                     openingDate = serviceOrder.openingDate,
-                    endingDate = serviceOrderRequest.status.equals("FINISHED")?.let {
-                        LocalDateTime.now()
-                    } ?: serviceOrderRequest.endingDate,
+                    endingDate = when (serviceOrder.status.toString()) {
+                        "FINISHED" -> serviceOrder.endingDate
+                        else -> {
+                            if (serviceOrderRequest.status.toString() == "FINISHED") {
+                                LocalDateTime.now()
+                            } else {
+                                serviceOrder.endingDate
+                            }
+                        }
+                    },
                     priority = serviceOrderRequest.priority,
                     notes = serviceOrderRequest.notes,
                     status = serviceOrderRequest.status,
