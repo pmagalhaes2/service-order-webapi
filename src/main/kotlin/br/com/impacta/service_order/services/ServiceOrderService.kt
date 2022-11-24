@@ -43,6 +43,12 @@ class ServiceOrderService(
                 notes = serviceOrderRequest.notes,
                 priority = serviceOrderRequest.priority,
                 status = serviceOrderRequest.status,
+                endingDate =  when (serviceOrderRequest.status.toString()) {
+                    "FINISHED" -> LocalDateTime.now()
+                    else -> {
+                        null
+                    }
+                },
                 technician = technicianRepository.findByid(serviceOrderRequest.technician)
                     ?: throw NotFoundException("Não existe técnico cadastrado com esse ID!"),
                 client = clientRepository.findByid(serviceOrderRequest.client)
